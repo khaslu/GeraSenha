@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <title>Gera Senha</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Gera senha">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+    <script>
+        angular.module("myApp", [])
+            .controller("Controller", [
+                "$scope",
+                ($scope) => {
+                    $scope.possibilidades = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*()-_+={[]}?|:;\\/"
+                    $scope.tamanho = 8;
+                    $scope.atualizar = () => {
+                        if (!$scope.possibilidades) {
+                            $scope.erro = "Informar as possiblidades"
+                        } else if (!$scope.tamanho || $scope.tamanho < 1) {
+                            $scope.erro = "Informar um tamanho acima de 0 (zero)"
+                        } else if ($scope.tamanho > 999) {
+                            $scope.erro = "Máximo 1000 (se não vai travar!)"
+                        } else {
+                            delete $scope.erro;
+                            if (!$scope.senhas) {
+                                $scope.senhas = [];
+                            }
+                            var novaSenha = "";
+                            for (i = 0; i < $scope.tamanho; i++) {
+                                var valor = $scope.possibilidades[Math.floor(Math.random() * $scope.possibilidades.length)]
+                                novaSenha += valor;
+                            }
+                            $scope.senhas.push(novaSenha);
+                        }
+                    }
+                    $scope.atualizar();
+                }
+            ]);
+    </script>
+
+    <body ng-controller="Controller">
+        <div class="contaier">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-6">
+                    <h3>Gerar senha</h3>
+                    <hr/>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Possibilidades</label>
+                        <textarea class="form-control" ng-model="possibilidades" ng-change="atualizar()" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Tamanho</label>
+                        <div class="input-group">
+                            <input class="form-control" type="number" ng-model="tamanho" ng-change="atualizar()">
+                            <span class="input-group-btn">
+                                <button class="btn btn-secundary" type="button" ng-click="atualizar()">Atualizar</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row" ng-show="erro">
+                <div class="col"></div>
+                <div class="col-6">
+                    <div class="alert alert-danger" role="alert">
+                        {{erro}}
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-6">
+                    <hr/>
+                    <label>Senhas: </label>
+                    <table class="table">
+                        <tr ng-repeat="senha in senhas.slice().reverse()">
+                            <td>
+                                {{senha}}
+                            </td>
+                        </tr>
+                    </table>
+                    <ul>
+
+                    </ul>
+                </div>
+                <div class="col"></div>
+            </div>
+    </body>
+
+</html>
