@@ -13,15 +13,21 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
         crossorigin="anonymous"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-animate.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/JustMaier/6ef7788709d675bd8230/raw/3d39d50e66d8d77e05656ed7dd09298be7e86f1f/ngClickCopy.js"></script>
+
+
     <script>
-        angular.module("myApp", [])
+        angular.module("myApp", ['ngClickCopy', 'ngAnimate'])
             .controller("Controller", [
                 "$scope",
-                ($scope) => {
+                "$timeout",
+                ($scope, $timeout) => {
                     $scope.possibilidades = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*()-_+={[]}?|:;\\/"
                     $scope.tamanho = 8;
                     $scope.atualizar = () => {
@@ -45,72 +51,95 @@
                         }
                     }
                     $scope.atualizar();
+                    $scope.alertaCopia = (senha) => {
+                        $scope.senhaCopiada = senha;
+                        $scope.copiou = true;
+                        $timeout(() => $scope.copiou = false, (3 * 1000))
+                    }
                 }
             ]);
     </script>
+    <style>
+        .show-hide {
+            transition: all linear 0.5s;
+        }
 
-    <body ng-controller="Controller">
-        <div class="contaier">
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-6">
-                    <h3>Gerar senha</h3>
-                    <hr/>
-                </div>
-                <div class="col"></div>
+        .show-hide.ng-hide {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body ng-controller="Controller">
+    <div class="contaier">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <h3>Gerar senha</h3>
+                <hr/>
             </div>
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <label>Possibilidades</label>
-                        <textarea class="form-control" ng-model="possibilidades" ng-change="atualizar()" rows="3"></textarea>
-                    </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label>Possibilidades</label>
+                    <textarea class="form-control" ng-model="possibilidades" ng-change="atualizar()" rows="3"></textarea>
                 </div>
-                <div class="col"></div>
             </div>
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <label>Tamanho</label>
-                        <div class="input-group">
-                            <input class="form-control" type="number" ng-model="tamanho" ng-change="atualizar()">
-                            <span class="input-group-btn">
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label>Tamanho</label>
+                    <div class="input-group">
+                        <input class="form-control" type="number" ng-model="tamanho" ng-change="atualizar()">
+                        <span class="input-group-btn">
                                 <button class="btn btn-secundary" type="button" ng-click="atualizar()">Atualizar</button>
                             </span>
-                        </div>
                     </div>
                 </div>
-                <div class="col"></div>
             </div>
-            <div class="row" ng-show="erro">
-                <div class="col"></div>
-                <div class="col-6">
-                    <div class="alert alert-danger" role="alert">
-                        {{erro}}
-                    </div>
+            <div class="col"></div>
+        </div>
+        <div class="row" ng-show="erro">
+            <div class="col"></div>
+            <div class="col-6">
+                <div class="alert alert-danger" role="alert">
+                    {{erro}}
                 </div>
-                <div class="col"></div>
             </div>
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-6">
-                    <hr/>
-                    <label>Senhas: </label>
-                    <table class="table">
-                        <tr ng-repeat="senha in senhas.slice().reverse()">
-                            <td>
-                                {{senha}}
-                            </td>
-                        </tr>
-                    </table>
-                    <ul>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <div class="alert alert-success alert-dismissible fade show show-hide" ng-show="copiou" role="alert">
+                        Senha "<strong>{{senhaCopiada}}</strong>" Copiada!
+                </div>
+                <hr/>
+                <label>Senhas: </label>
+                <table class="table">
+                    <tr ng-repeat="senha in senhas.slice().reverse()">
+                        <td style="width: 1px;">
+                            <button class="btn" ng-click-copy="{{senha}}" title="Copiar" ng-click="alertaCopia(senha)">
+                                    <i class="fa fa-clone" aria-hidden="true"></i>
+                                </button>
+                        </td>
+                        <td>
+                            {{senha}}
+                        </td>
+                    </tr>
+                </table>
+                <ul>
 
-                    </ul>
-                </div>
-                <div class="col"></div>
+                </ul>
             </div>
-    </body>
+            <div class="col"></div>
+        </div>
+</body>
 
 </html>
