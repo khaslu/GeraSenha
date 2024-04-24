@@ -19,6 +19,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { environment } from 'environments/environment';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes,{
-      useHash: true
+      useHash: true,
+      enableTracing: !environment.production
     }),
     SidebarModule,
     NavbarModule,
