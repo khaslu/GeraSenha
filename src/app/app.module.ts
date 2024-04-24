@@ -31,7 +31,8 @@ import { environment } from 'environments/environment';
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes,{
       useHash: true,
-      enableTracing: !environment.production
+      enableTracing: !environment.production,
+      onSameUrlNavigation: 'reload',
     }),
     SidebarModule,
     NavbarModule,
