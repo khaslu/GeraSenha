@@ -34,6 +34,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/dist/",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
