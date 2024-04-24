@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header text-bg-danger px-3 py-3">
+        Parâmetros
+      </div>
+      <div class="card-body ">
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="col-12 d-flex justify-content-evenly py-3">
+              <mat-slide-toggle formControlName="contemNumero">Contém números?</mat-slide-toggle>
+              <mat-slide-toggle formControlName="contemLetras">Contém letras?</mat-slide-toggle>
+              <mat-slide-toggle formControlName="contemSimbolos">Contém caracteres especiais?</mat-slide-toggle>
+            </div>
+            <div class="col-12 d-flex gap-2 justify-content-between align-items-center">
+              <mat-form-field class="w-100">
+                <label>Tamanho da senha</label>
+                <input matInput type="number" formControlName="tamanho" min="1" max="100">
+                <mat-error *ngIf="form.get('tamanho').hasError('required')">Campo obrigatório</mat-error>
+                <mat-error *ngIf="form.get('tamanho').hasError('min')">O tamanho mínimo é 1</mat-error>
+                <mat-error *ngIf="form.get('tamanho').hasError('max')">O tamanho máximo é 100</mat-error>
+              </mat-form-field>
+              <button mat-icon-button color="primary" (click)="gerar()" [disabled]="form.invalid">
+                <mat-icon>sync</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="limpar()">
+                <mat-icon>cleaning_services</mat-icon>
+              </button>
+            </div>
+            <div class="col-12 d-flex flex-column gap-3 mt-2 ">
+              <mat-form-field class="w-100" *ngFor="let senha of form.value.senha">
+                <input matInput [value]="senha" placeholder="Senha" readonly>
+                <button mat-button matSuffix mat-icon-button aria-label="Copiar" (click)="copiar(senha)">
+                  <mat-icon>content_copy</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
