@@ -34,7 +34,7 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/dist/",
+              "baseHref": "/GeraSenha/dist/",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
