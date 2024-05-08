@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header text-bg-danger px-3 py-3">
+        Parâmetros
+      </div>
+      <div class="card-body ">
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="col-12 d-flex gap-2 justify-content-between align-items-center">
+              <mat-form-field class="w-100">
+                <label>Texto</label>
+                <textarea matInput type="number" formControlName="de" [rows]="25"
+                  (ngModelChange)="deParaFn.next()"></textarea>
+              </mat-form-field>
+              <mat-form-field class="w-100">
+                <label>Texto</label>
+                <textarea matInput type="number" formControlName="para" [rows]="25"
+                  (ngModelChange)="paraDeFn.next()"></textarea>
+              </mat-form-field>
+            </div>
+            <div class="col-12 d-flex justify-content-between">
+              <button mat-raised-button color="primary" (click)="dePara()">&#62;&#62;&#62;&#62;&#62;</button>
+              <button mat-raised-button color="primary" (click)="paraDe()">&#60;&#60;&#60;&#60;&#60;</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,10 +9,12 @@ import { MapsComponent } from '../../pages/maps/maps.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
 import { GeraSenhaComponent } from 'app/pages/gera-senha/gera-senha.component';
+import { Base64Component } from 'app/pages/base64/base64.component';
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'gera-senha', component: GeraSenhaComponent },
+  { path: 'base64', component: Base64Component },
   /*{ path: 'user',           component: UserComponent },
   { path: 'table',          component: TableComponent },
   { path: 'typography',     component: TypographyComponent },

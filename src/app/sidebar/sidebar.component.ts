@@ -6,11 +6,13 @@ export interface RouteInfo {
   title: string;
   icon: string;
   class: string;
+  description: string;
 }
 
 export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '' },
-  { path: '/gera-senha', title: 'Gera Senha', icon: 'nc-lock-circle-open', class: '' },
+  { path: '/dashboard', title: 'Dashboard', icon: 'home', class: '', description: 'Página inicial'},
+  { path: '/gera-senha', title: 'Gera Senha', icon: 'lock', class: '', description: 'Ferramenta para gerar senhas seguras'},
+  { path: '/base64', title: 'Base64', icon: 'description', class: '', description: 'Ferramenta para codificar e decodificar base64'},
   /*{ path: '/icons', title: 'Icons', icon: 'nc-diamond', class: '' },
   { path: '/maps', title: 'Maps', icon: 'nc-pin-3', class: '' },
   { path: '/notifications', title: 'Notifications', icon: 'nc-bell-55', class: '' },
