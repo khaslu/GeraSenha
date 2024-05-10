@@ -11,7 +11,7 @@
     </a>
   </div>
     <ul class="nav">
-        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
+        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" [attr.class]="menuItem.class">
             <a [routerLink]="[menuItem.path]" class="d-flex justify-content-start gap-3 align-items-center">
                 <mat-icon>{{menuItem.icon}}</mat-icon>
                 <p>{{menuItem.title}}</p>

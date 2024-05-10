@@ -1,6 +1,7 @@
 import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CopyUtil } from 'app/shared/util/copy.util';
 
 @Component({
   selector: 'app-gera-senha',
@@ -68,17 +69,7 @@ export class GeraSenhaComponent implements OnInit {
   }
 
   copiar(senha: string) {
-    const input = document.createElement('input');
-    input.value = senha;
-    document.body.appendChild(input);
-    input.select();
-    navigator.clipboard.writeText(input.value)
-      .then(() => {
-        document.body.removeChild(input);
-      })
-      .catch((error) => {
-        console.error('Falha ao copiar o texto: ', error);
-      });
+    CopyUtil.copiar(senha);
   }
 
   limpar() {

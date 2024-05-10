@@ -1,6 +1,7 @@
 import { formatNumber } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CopyUtil } from 'app/shared/util/copy.util';
 import { debounceTime, ReplaySubject, Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -44,5 +45,13 @@ export class Base64Component implements OnInit, OnDestroy {
 
   limpar() {
     this.form.reset();
+  }
+
+  copiarDe() {
+    CopyUtil.copiar(this.form.get('de').value);
+  }
+
+  copiarPara() {
+    CopyUtil.copiar(this.form.get('para').value);
   }
 }
